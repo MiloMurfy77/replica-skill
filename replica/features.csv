@@ -20,7 +20,7 @@ Like/dislike/estrella por clip,resultados,must,yes,no,
 Editor: recortar/extender inicio y fin,editor,must,yes,no,
 Editor: editar texto de subtítulos,editor,must,yes,no,
 Descargar MP4 1080p,export,must,yes,no,render bajo demanda
-Créditos por minuto de fuente + plan de pago (Stripe),billing,must,yes,no,no cobrar dos veces si falla
+Créditos por minuto de fuente + plan de pago (Stripe),billing,skip,yes,skip,decisión del proyecto: sin pagos; solo se registran los minutos analizados
 Prompt para buscar un momento concreto,ia,should,yes,no,ClipAnything / custom instructions
 Reprompt sobre la misma fuente sin re-transcribir,ia,should,yes,no,
 Rango de tiempo a analizar (timeframe),ajustes,should,yes,no,
@@ -35,7 +35,7 @@ Aplicar plantilla a todos los clips,marca,should,yes,no,
 Auto hook (texto gancho al inicio),ia,should,yes,no,
 Descarga en lote (zip),export,should,yes,no,
 Export SRT,export,should,yes,no,
-Marca de agua en plan gratuito,billing,should,yes,no,
+Marca de agua en plan gratuito,billing,skip,yes,skip,sin planes de pago no aplica
 Publicar en YouTube Shorts / TikTok / Instagram,publicar,should,yes,no,APIs oficiales con revisión de app
 Caducidad de fuentes por plan,storage,should,yes,no,Opus free 3 días
 Export XML para Premiere / DaVinci,export,could,yes,no,FCPXML con segmentos+crop+SRT

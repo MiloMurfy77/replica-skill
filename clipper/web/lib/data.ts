@@ -80,10 +80,12 @@ export type Render = {
   created_at: Date;
 };
 
-export async function minutesBalance(userId: string): Promise<number> {
-  const [r] = await sql<{ b: number }[]>`
-    select coalesce(sum(delta_min), 0)::int as b from usage_ledger where user_id = ${userId}`;
-  return r.b;
+/** Minutos de vídeo analizados (solo informativo: no hay límite ni pagos). */
+export async function minutesUsed(userId: string): Promise<number> {
+  const [r] = await sql<{ u: number }[]>`
+    select coalesce(-sum(delta_min), 0)::int as u from usage_ledger
+    where user_id = ${userId} and reason in ('analysis','refund')`;
+  return r.u;
 }
 
 export async function enqueue(kind: "ingest" | "analyze" | "render", refId: string) {

@@ -85,7 +85,6 @@ export default function JobView({ initialJob, initialClips, sourceName }: { init
       {job.status === "failed" && (
         <section className="card border-danger/40 p-5">
           <p className="text-danger">{job.error ?? "Error desconocido."}</p>
-          {job.minutes_charged > 0 && <p className="mt-1 text-sm text-muted">Te hemos devuelto los {job.minutes_charged} minutos.</p>}
         </section>
       )}
 

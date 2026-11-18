@@ -32,7 +32,7 @@ const STYLES = [
   { v: "none", l: "Sin subtítulos", d: "Si tu vídeo ya los trae" },
 ] as const;
 
-export default function SourceSetup({ initial, balance, freeReprompt }: { initial: Source; balance: number; freeReprompt: boolean }) {
+export default function SourceSetup({ initial }: { initial: Source }) {
   const [src, setSrc] = useState(initial);
   const [targetLen, setTargetLen] = useState(60);
   const [aspect, setAspect] = useState<(typeof ASPECTS)[number]["v"]>("9:16");
@@ -62,7 +62,6 @@ export default function SourceSetup({ initial, balance, freeReprompt }: { initia
   const a = parseTime(rangeA) ?? 0;
   const b = parseTime(rangeB) ?? src.duration_s ?? 0;
   const span = useRange ? Math.max(0, Math.min(b, src.duration_s ?? b) - a) : (src.duration_s ?? 0);
-  const minutes = freeReprompt ? 0 : Math.max(1, Math.floor(span / 60));
 
   async function start() {
     setBusy(true);
@@ -218,22 +217,18 @@ export default function SourceSetup({ initial, balance, freeReprompt }: { initia
 
       <aside className="card h-fit space-y-4 p-5 lg:sticky lg:top-20">
         <div>
-          <p className="text-sm text-muted">Coste</p>
-          <p className="text-2xl font-bold">
-            {freeReprompt ? "Gratis" : `${minutes} min`}
-            <span className="ml-2 text-sm font-normal text-muted">de {balance} disponibles</span>
-          </p>
-          {freeReprompt && <p className="text-xs text-muted">Este vídeo ya está analizado: volver a generar clips no consume minutos.</p>}
+          <p className="text-sm text-muted">Se analizarán</p>
+          <p className="text-2xl font-bold">{ready ? fmtTime(span) : "–"}</p>
+          <p className="text-xs text-muted">de vídeo. Suele tardar menos que la duración del vídeo.</p>
         </div>
         {error && (
           <p role="alert" className="text-sm text-danger">
             {error}
           </p>
         )}
-        <button className="btn-primary w-full py-3 text-base" disabled={!ready || busy || minutes > balance} onClick={start}>
+        <button className="btn-primary w-full py-3 text-base" disabled={!ready || busy} onClick={start}>
           {!ready ? "Preparando vídeo…" : busy ? "Empezando…" : "Generar clips"}
         </button>
-        {ready && minutes > balance && <p className="text-xs text-danger">No te quedan minutos suficientes. Analiza un tramo más corto.</p>}
       </aside>
     </div>
   );

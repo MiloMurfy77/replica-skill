@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { currentUser } from "@/lib/auth";
-import { minutesBalance } from "@/lib/data";
+import { minutesUsed } from "@/lib/data";
 import LogoutButton from "@/components/LogoutButton";
 import "./globals.css";
 
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const user = await currentUser();
-  const balance = user ? await minutesBalance(user.id) : 0;
+  const used = user ? await minutesUsed(user.id) : 0;
   return (
     <html lang="es">
       <body className="min-h-dvh antialiased">
@@ -24,11 +24,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             </Link>
             {user ? (
               <div className="flex items-center gap-3 text-sm">
-                <span
-                  className={`rounded-full border px-3 py-1 ${balance < 10 ? "border-danger text-danger" : "border-line text-muted"}`}
-                  title="Minutos de vídeo que puedes analizar"
-                >
-                  {balance} min disponibles
+                <span className="rounded-full border border-line px-3 py-1 text-muted" title="Minutos de vídeo analizados">
+                  {used} min analizados
                 </span>
                 <span className="hidden text-muted sm:inline">{user.email}</span>
                 <LogoutButton />

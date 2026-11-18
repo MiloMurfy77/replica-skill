@@ -7,7 +7,6 @@ import { sql } from "./db";
 const scrypt = promisify(crypto.scrypt) as (pw: string, salt: Buffer, len: number) => Promise<Buffer>;
 const COOKIE = "sid";
 const SESSION_DAYS = 30;
-export const FREE_MINUTES = 60;
 
 export type User = { id: string; email: string; name: string | null; plan: string };
 

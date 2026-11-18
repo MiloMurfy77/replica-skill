@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { createSession, FREE_MINUTES, hashPassword } from "@/lib/auth";
+import { createSession, hashPassword } from "@/lib/auth";
 import { sql } from "@/lib/db";
 import { json } from "@/lib/http";
 
@@ -18,7 +18,6 @@ export async function POST(req: Request) {
     insert into users (email, password_hash, name) values (${email}, ${hash}, ${name ?? null})
     on conflict (lower(email)) do nothing returning id`;
   if (!rows[0]) return json({ error: "Ya existe una cuenta con ese email." }, 409);
-  await sql`insert into usage_ledger (user_id, delta_min, reason) values (${rows[0].id}, ${FREE_MINUTES}, 'grant')`;
   await createSession(rows[0].id);
   return json({ ok: true });
 }

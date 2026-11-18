@@ -18,7 +18,7 @@ Basado en `replica/recon.md` y `replica/features.csv`. Código en `clipper/`.
 | reencuadre | detector de caras de OpenCV (YuNet, con Haar de respaldo) + energía de labios | encuentra a quien habla sin modelos de pago |
 | subtítulos | archivo ASS generado + filtro `subtitles` de ffmpeg | animación palabra a palabra con calidad de render real |
 | archivos | disco local (`STORAGE_DIR`) en dev; Cloudflare R2 (S3) en prod | R2 no cobra salida de datos, clave para vídeo |
-| pagos | Stripe Checkout + webhooks (hito 2) | estándar |
+| pagos | ninguno (decisión del proyecto) | uso libre; solo se registran los minutos analizados |
 | email | Resend (hito 2): "tus clips están listos" | |
 | hosting | web en Vercel; worker en una máquina con CPU/GPU (Fly.io, Hetzner o Modal) | el worker necesita ffmpeg y minutos de CPU largos |
 
@@ -32,7 +32,7 @@ Reglas de acceso: **comprobaciones en la capa de datos**. Cada consulta del web 
 
 Restricciones duras:
 - `clips.end_s > clips.start_s`.
-- Un trabajo de análisis no se cobra dos veces: `usage_ledger` tiene `unique (job_id, reason)`.
+- El uso de un análisis se registra una sola vez: `usage_ledger` tiene `unique (job_id, reason)`.
 - Una tarea solo la toma un worker: `FOR UPDATE SKIP LOCKED` + `locked_until` (si un worker muere, la tarea vuelve a la cola).
 
 ## API
@@ -50,7 +50,6 @@ Restricciones duras:
 | POST /api/clips/:id/render | encola render MP4 | dueño | — | `{render_id}` | F05 |
 | GET /api/renders/:id | estado del render | dueño | — | render | F05 |
 | GET /api/files/:kind/:id | sirve preview/descarga con comprobación de dueño | dueño | — | vídeo (Range) | F05 |
-| POST /api/stripe/webhook | (hito 2) compra de minutos, idempotente por event id | Stripe | evento | 200 | F08 |
 
 Trabajos (tabla `tasks`): `ingest` (ffprobe/validación), `analyze` (transcribir → elegir → reencuadrar → render de previews), `render` (MP4 final). Limpieza diaria de fuentes caducadas (hito 2).
 
@@ -68,6 +67,6 @@ Trabajos (tabla `tasks`): `ingest` (ffprobe/validación), `analyze` (transcribir
 ## Orden de construcción
 
 1. **Rebanada vertical (este hito):** registro → subir vídeo (S04) → ajustes (S05) → progreso (S06) → lista de clips con score (S07) → descarga MP4 (S09). Tablas: todas las del MVP. Rutas: auth, sources, jobs, clips, renders, files.
-2. **Must restantes:** edición de inicio/fin y texto de subtítulos (S08), import por URL, cobro por minutos con Stripe (S14/S15), email de aviso.
+2. **Must restantes:** edición del texto de subtítulos (S08), email de aviso. Sin pagos (S14/S15 fuera).
 3. **Should:** reprompt, edición por transcripción, layouts split/screenshare, quitar muletillas, plantillas de marca, descarga en lote, SRT, publicación en YouTube/TikTok/IG.
 4. **Arreglos** que encuentre /replica-entrepreneur.

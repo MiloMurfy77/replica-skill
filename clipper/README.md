@@ -19,7 +19,7 @@ web (Next.js)  ── sube el vídeo ──▶  disco / R2
 
 - Cola de trabajos en la propia base de datos (`tasks` + `FOR UPDATE SKIP LOCKED`): sin Redis.
 - La transcripción se hace una vez por vídeo; volver a generar clips del mismo vídeo es gratis.
-- Cobro por minutos de vídeo analizado (60 min gratis al registrarse); si el análisis falla, se devuelven.
+- Sin pagos ni límites de uso: la app solo cuenta los minutos analizados, como información.
 
 ## Arrancar en local
 
@@ -55,4 +55,4 @@ Se registra, sube el vídeo, genera clips, abre el editor y descarga un MP4.
 
 Hecho: registro, subida (hasta 4 GB) e importación por enlace https, ajustes (duración, formato, estilo de subtítulos, búsqueda por texto, tramo), progreso por etapas, lista de clips con puntuación y sub-puntuaciones, me gusta / descartar / destacar, editor (título, descripción, recorte, encuadre, subtítulos, gancho), descarga MP4 y SRT.
 
-Siguiente: pagos con Stripe, email de "clips listos", subida directa a R2, edición por transcripción, plantillas de marca, publicación en redes.
+Siguiente: email de "clips listos", subida directa a R2, edición por transcripción, plantillas de marca, publicación en redes. Sin pagos (decisión del proyecto).

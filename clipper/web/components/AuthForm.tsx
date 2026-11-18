@@ -29,7 +29,7 @@ export default function AuthForm({ mode }: { mode: "login" | "signup" }) {
     <div className="mx-auto mt-10 max-w-sm">
       <h1 className="text-2xl font-bold">{mode === "login" ? "Entra en tu cuenta" : "Crea tu cuenta"}</h1>
       <p className="mt-1 text-sm text-muted">
-        {mode === "signup" ? "Incluye 60 minutos gratis para probar." : "Sigue convirtiendo vídeos en clips."}
+        {mode === "signup" ? "Convierte tus vídeos largos en clips listos para publicar." : "Sigue convirtiendo vídeos en clips."}
       </p>
       <form onSubmit={onSubmit} className="card mt-6 space-y-3 p-5">
         <label className="block text-sm">

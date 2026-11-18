@@ -1,0 +1,9 @@
+.data/
+.venv/
+node_modules/
+.next/
+worker/models/
+e2e-shots/
+*.tsbuildinfo
+__pycache__/
+.env*

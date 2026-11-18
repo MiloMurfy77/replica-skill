@@ -1,0 +1,6 @@
+psycopg[binary]==3.3.9
+opencv-python-headless==5.1.0.95
+numpy==2.5.5
+faster-whisper==1.2.1
+anthropic==2.10.0
+requests==2.34.2

@@ -1,0 +1,57 @@
+feature,area,priority,original,clone,notes
+Registro con email o Google,onboarding,must,yes,no,
+Subir archivo de vídeo grande (multipart reanudable),ingesta,must,yes,no,Choppity 4 GB/3 h; Opus 10-30 GB/10 h
+Importar desde enlace (Drive/Dropbox/URL mp4),ingesta,must,yes,no,YouTube ver skip
+Validar duración/resolución/tamaño contra el plan,ingesta,must,yes,no,ffprobe
+Elegir duración objetivo del clip,ajustes,must,yes,no,15 s-3 min; default 60 s
+Elegir aspect ratio 9:16 / 1:1 / 16:9,ajustes,must,yes,no,
+Elegir estilo de subtítulos (presets o ninguno),ajustes,must,yes,no,
+Transcripción con timestamps por palabra en muchos idiomas,ia,must,yes,no,Whisper/Deepgram
+Diarización de hablantes,ia,must,yes,no,necesaria para reencuadre
+Detección automática de los mejores momentos (10-50 clips),ia,must,yes,no,LLM por ventanas + snap a frase
+Puntuación 0-99 por clip con motivo,ia,must,yes,no,sub-scores hook/flow/value/trend
+Título descripción y hashtags generados,ia,must,yes,no,
+Reencuadre automático siguiendo al que habla,reencuadre,must,yes,no,caras + active speaker + suavizado
+Subtítulos animados palabra a palabra quemados,subtítulos,must,yes,no,
+Resaltado de palabras clave en subtítulos,subtítulos,must,yes,no,
+Pantalla de progreso por etapas + aviso por email,procesado,must,yes,no,
+Lista de clips con preview ordenable por score o cronología,resultados,must,yes,no,
+Like/dislike/estrella por clip,resultados,must,yes,no,
+Editor: recortar/extender inicio y fin,editor,must,yes,no,
+Editor: editar texto de subtítulos,editor,must,yes,no,
+Descargar MP4 1080p,export,must,yes,no,render bajo demanda
+Créditos por minuto de fuente + plan de pago (Stripe),billing,must,yes,no,no cobrar dos veces si falla
+Prompt para buscar un momento concreto,ia,should,yes,no,ClipAnything / custom instructions
+Reprompt sobre la misma fuente sin re-transcribir,ia,should,yes,no,
+Rango de tiempo a analizar (timeframe),ajustes,should,yes,no,
+Edición por transcripción (borrar palabras = cortar),editor,should,yes,no,
+Layouts: fill / fit+blur / split 2 hablantes / screenshare,reencuadre,should,yes,no,
+Reencuadre manual con keyframes,reencuadre,should,yes,no,
+Quitar muletillas y silencios,editor,should,yes,no,
+Emojis automáticos en subtítulos,subtítulos,should,yes,no,
+Censura automática de palabrotas,subtítulos,should,yes,no,
+Plantilla de marca (fuente propia colores logo posición),marca,should,yes,no,
+Aplicar plantilla a todos los clips,marca,should,yes,no,
+Auto hook (texto gancho al inicio),ia,should,yes,no,
+Descarga en lote (zip),export,should,yes,no,
+Export SRT,export,should,yes,no,
+Marca de agua en plan gratuito,billing,should,yes,no,
+Publicar en YouTube Shorts / TikTok / Instagram,publicar,should,yes,no,APIs oficiales con revisión de app
+Caducidad de fuentes por plan,storage,should,yes,no,Opus free 3 días
+Export XML para Premiere / DaVinci,export,could,yes,no,FCPXML con segmentos+crop+SRT
+Programar publicaciones + calendario,publicar,could,yes,no,
+LinkedIn / X / Facebook / Threads / Bluesky,publicar,could,yes,no,
+B-roll de stock automático,editor,could,yes,no,Pexels API
+B-roll generado por IA,editor,could,yes,no,coste alto
+Música de fondo,editor,could,yes,no,biblioteca con licencia propia
+Intro/outro de marca,marca,could,yes,no,
+Tracking de objetos en movimiento (deportes/gaming),reencuadre,could,yes,no,
+Voz en off IA / doblaje,editor,could,yes,no,
+Equipos y asientos,equipo,could,yes,no,
+Import automático de nuevos vídeos de tu canal,ingesta,could,yes,no,YouTube Data API con canal verificado
+API pública para clipping,api,could,yes,no,
+Descargar vídeos de YouTube por URL,ingesta,skip,yes,skip,choca con ToS de YouTube; ofrecer subida o canal propio por OAuth
+Modelo propio ClipAnything y su dataset viral,ia,skip,yes,skip,modelo propietario; se sustituye por LLM/VLM públicos
+Biblioteca de stock y música licenciada de Opus,editor,skip,yes,skip,contenido licenciado
+Presets de subtítulos con su diseño y nombres,subtítulos,skip,yes,skip,diseñar presets propios
+Analítica de tendencias en tiempo real,ia,skip,yes,skip,datos propiedad de Opus (Business)
